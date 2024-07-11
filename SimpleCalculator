@@ -1,0 +1,43 @@
+Calculator in JAVA
+
+package Main;
+import java.util.Scanner;
+
+    public class Main {
+    
+    	public static void main(String[] args) {
+    		
+    		int result;
+    		Scanner scanner = new Scanner(System.in);
+
+    		System.out.println("Digite o primeiro valor: ");
+    		int value1 = scanner.nextInt();
+    		System.out.println("Digite o segundo valor: ");
+    		int value2 = scanner.nextInt();
+    		String clear = scanner.nextLine();
+    		System.out.println("Digite o operador: ");
+    		String op = scanner.nextLine();
+    		
+    		if (!op.equals("/") && !op.equals("-") && !op.equals("*") && !op.equals("+")) {
+    			System.out.println("Operador não válido");
+    		}
+    		else {
+    			if (op.equals("+")) {
+    				result = value1 + value2;
+    				System.out.println("O resultado de "+value1+" somado com "+value2+" é: "+result);
+    			}
+    			else if (op.equals("-")) {
+    				result = value1 - value2;
+    				System.out.println("O resultado de "+value1+" diminuido por "+value2+" é: "+result);
+    			}
+    			else if (op.equals("/")) {
+    				result = value1 / value2;
+    				System.out.println("O resultado de "+value1+ " dividido por "+value2+ " é: "+result);
+    			}
+    			else {
+    				result = value1 * value2;
+    				System.out.println("O resultado de "+value1+" multiplicado por "+value2+ " é: "+result);
+    			}
+    		}
+    	}
+    }
