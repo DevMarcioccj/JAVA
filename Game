@@ -1,0 +1,53 @@
+Testegame
+
+package Main;
+
+import java.util.Random;
+import java.util.Scanner;
+
+public class Main {
+
+	public static void main(String[] args) throws InterruptedException {
+		
+		Scanner scanner = new Scanner(System.in);
+		String name = "";
+		int life = 20;
+		Random random = new Random();
+		System.out.println("Bem vindo ao 'De trás da parede'");
+
+		while (name.isBlank()) {
+			System.out.println("Digite seu nome: ");
+			name = scanner.nextLine();
+		}
+		
+		System.out.println("Ao entrar na caverna, "+name+" estava aterrorizado. Ossos estavam distribuídos durante todo caminho até a porta.");
+		Thread.sleep(3000);
+		System.out.println("Ele encontra uma porta, ainda fechada. Deseja abrir a porta? (S/N)");
+		String response = scanner.nextLine();
+		
+		if (response.equals("S") || response.equals("s")) {
+			System.out.println("Você decidiu tentar abrir a porta, mas a mesma estava emperrada");
+			Thread.sleep(3000);
+			System.out.println("Quer força a entrada? (S/N)");
+			String response2 = scanner.nextLine();
+			
+			if (response2.equals("S") || response2.equals("s")) {
+				System.out.println("Você decide entrar, mas ao entrar tropeça em uma pedra em seu caminho. Isso irá lhe custar vida");
+				Thread.sleep(3000);
+				int jogada1 = random.nextInt(5)+1;
+				life = life - jogada1;
+				System.out.println("Você perdeu "+jogada1+" de vida, devido a seu descuido");
+				Thread.sleep(3000);
+				System.out.println("Você agora tem: "+life+" pontos de vida");
+				
+			}
+		}
+		else if (response.equals("N") || response.equals("n")){
+			System.out.println("Você decidiu não abrir a porta, e seguiu em frente");
+		}
+		else {
+			System.out.println("Essa jogada não é válida");
+		}
+
+	}
+}
