@@ -1,78 +1,117 @@
-package Main;
-
-import java.util.Scanner;
-
+package defaultpackage;
 import javax.swing.JOptionPane;
 
-import java.io.IOException;
 
 public class Main {
-	static Scanner scanner = new Scanner(System.in);
-	
-	public static void main(String[] args) throws InterruptedException{
-		
-		int life = 20;
-		String arma = "";
-		int dano = 0;
-		String name = name();
-		Thread.sleep(1000);
-		//Apresentacao(name);
-		Explicacao();		
-		int personagem = EscolhaGenero();
-		
-		if (personagem == 0) {
-			life = 40;	
-			PremiacaoPersonagem(personagem, life, dano, arma);
-		}
-		else {
-			arma = "Cajado Nevoeiro";
-			dano = 15;
-			PremiacaoPersonagem(personagem, life, dano, arma);
-		}
-		PassadoPerso(personagem);	
-	}
-	
-	static String name() {
+	static String arma;
+	static int dano;
+	public static void main(String[] args) {
+		String name = Name();
+		int Resultadogenero = EscolhaGenero();
+		int Resultadotipo = EscolhaTipoPers();
+		String genero;
+		String tipo;
 
-		String name = JOptionPane.showInputDialog("Digite seu nome: ");
-		return name;		
-	}
-	
-	static void Apresentacao(String name) throws InterruptedException {
-		JOptionPane.showMessageDialog(null, "Seja bem vindo, "+name+"!", "Apresentação", JOptionPane.PLAIN_MESSAGE);
-		JOptionPane.showMessageDialog(null, "Esse é um jogo teste, desenvolvimento unicamente com JAVA.", "Apresentação", JOptionPane.PLAIN_MESSAGE);
-		JOptionPane.showMessageDialog(null, "Para sugestões, entrar em contato em: dev.marciocoelho@gmail.com.", "Apresentação", JOptionPane.PLAIN_MESSAGE);
-	}
-	
-	static void Explicacao() throws InterruptedException {
-		JOptionPane.showMessageDialog(null, "Você é um jovem aventureiro. Sua vida é definida por pontos, 20 pontos. Se ela zerar, você morre.", "Conhecendo o jogo", JOptionPane.NO_OPTION);
-		JOptionPane.showMessageDialog(null, "Para poder combater os inimigos, você deverá equipar sua arma. Cada arma tem seu dano", "Conhecendo o jogo", JOptionPane.NO_OPTION);
-		JOptionPane.showMessageDialog(null, "Boa sorte, e bom jogo!", "Iniciando", JOptionPane.NO_OPTION);
+		
+		if(Resultadogenero == 0) 
+			genero = "Feminino";
+		else 
+			genero = "Masculino";
+		
+		if(Resultadotipo == 0)
+			tipo = "Guerreiro";
+		else
+			tipo = "Mago";
+		
+		Personagem perso = new Personagem(genero, tipo, name);
+		int conf = Confirmar(perso.name, perso.genero, perso.Tipo);
+		if (conf == 1)
+			JOptionPane.showMessageDialog(null, "Bem, isso não deveria acontecer. Vamos tentar novamente, seu jogo será fechado.", "Fim", JOptionPane.INFORMATION_MESSAGE);
+		else {
+			JOptionPane.showMessageDialog(null, "Muito bem, tudo está certo para iniciarmos. Bom jogo e boa sorte.", "Inicio", JOptionPane.INFORMATION_MESSAGE);
+			
+			CapítuloI(tipo);
+		}
 	}
 	
 	static int EscolhaGenero() {
-		Object[] options = {"Guerreiro", "Mago"};
-		int opcao = JOptionPane.showOptionDialog(null, "Escolhe seu personagem", "Personagem", 0, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+		Object[] options = {"Feminino", "Masculino"};
+		int opcao = JOptionPane.showOptionDialog(null, "Escolhe o gênero do seu personagem", "Gênero", 0, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
 		return opcao;
 	}
 	
-	static void PremiacaoPersonagem(int personagem, int life, int dano, String arma) {
-		if (personagem == 0)
-			JOptionPane.showMessageDialog(null, "Devido a sua escolha, lhe fora concedido mais 20 pontos de vida. Agora sua vida é de "+life+" pontos", "Escolha Guerreiro", JOptionPane.INFORMATION_MESSAGE);
-		else 
-			JOptionPane.showMessageDialog(null, "Devido a sua escolha, lhe fora concedido uma arma: "+arma+" . Você agora pode atacar, seu dano é: "+dano+".", "Escolha Mago", JOptionPane.INFORMATION_MESSAGE);
+	static int EscolhaTipoPers() {
+		Object[] options = {"Guerreiro", "Mago"};
+		int opcao = JOptionPane.showOptionDialog(null, "Escolhe o estilo do seu personagem", "Personagem", 0, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+		return opcao;
 	}
 	
-	static void PassadoPerso(int personagem) {
-		if (personagem == 0) {
-			JOptionPane.showMessageDialog(null, "Durante anos, sua única opção de vida foi a guerra. "
-					+ "Ser um guerreiro lhe proporcionou muitas realizações, perderá seu fiel aliado, um escudo de titânio capaz de segurar a espada mais poderosa já feita 'Kleopatra', mas ela se foi. "
-					+ "Roubada por um ladrão qualquer, agora te deixava desprotegido, apenas com uma armadura quebrava.", "Capítulo I", JOptionPane.INFORMATION_MESSAGE);
+	static String Name() {
+		String name = JOptionPane.showInputDialog("Digite o nome do seu personagem: ");
+		return name;	
+	}
+	
+	static int Confirmar(String name, String genero, String tipo) {
+
+		int conf = JOptionPane.showConfirmDialog(null, "Muito bem, você criou seu personagem. \n"
+				+ "Seu nome é "+name+". Ele é um personagem do gênero: "+genero+", e seu tipo é: "+tipo+".", "Confirmação", JOptionPane.YES_NO_OPTION);
+		return conf;
+		
+	}
+	
+	static void CapítuloI(String tipo) {
+		JOptionPane.showMessageDialog(null, "Você acorda em uma cama, ela não é a sua. A última coisa que lembra é de ir deitar. \n"
+				+ "O quarto está meio escuro, mas com a pouca luz que entra pela fresta abaixo da porta é possível notar alguns detalhes. \n"
+				+ "A parede do ambiente é feita de tijolos, esses já bem desgastado e com algumas marcas. \n"
+				+ "Como se alguém que em algum momento esteve ali, estava ansioso para sair.", "Capítulo I - Inicialização", JOptionPane.PLAIN_MESSAGE);
+		
+		Object[] options = {"Abrir porta", "Vasculhar quarto"};
+		int opcaoAcao1 = JOptionPane.showOptionDialog(null, "Você decide levantar da cama, e olha o ambiente ao redor. \n"
+				+ "Você pensa um pouco e resolve agir.", "Ação I", 0, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+		
+		if (opcaoAcao1 == 0) {
+			JOptionPane.showMessageDialog(null, "Você decide ir até a porta, e tentar abri-la. \n"
+					+ "Incrivelmente ela estava destrancada, você sai do quarto.", "Você escolheu abrir a porta", JOptionPane.PLAIN_MESSAGE);
 		}
 		else {
-			JOptionPane.showMessageDialog(null, "Já fora considerado o maior de todos, o supremo Mago, esquecido com o tempo."
-					+ "O anel dos anéis havia sido destruído, dilacerando assim, todo seu poder. A única coisa que ainda era sua parceira, um velho cajado porém útil: Cajado Nevoeiro."
-					+ " Esse herdado de seu grande mestre, Alakab.", "Capítulo I", JOptionPane.INFORMATION_MESSAGE);
+			if (tipo == "Guerreiro") {
+				JOptionPane.showMessageDialog(null, "Você olha ao redor, e encontra um baú. \n"
+						+ "Ao abri-lo descobre uma arma, uma espada de ferro. \n"
+						+ "Você decide pega-lá, agora você está armada.", "Você escolheu vasculhar", JOptionPane.PLAIN_MESSAGE);
+				arma = "Espada de ferro";
+				dano = 5;
+			}
+			else {
+				JOptionPane.showMessageDialog(null, "Você olha ao redor, e vê um armário. \n"
+						+ "Ao abrir descobre um cajado com um pano por cima, Cajado da Vida. \n"
+						+ "Você pega ele, e agora está pronta para derrotar o que encontrar no caminho.", "Você escolheu vasculhar", JOptionPane.PLAIN_MESSAGE);
+				arma = "Cajado da Vida";
+				dano = 8;
+			}
+			JOptionPane.showMessageDialog(null, "Você decide ir até a porta, e tentar abri-la. \n"
+					+ "Incrivelmente ela estava destrancada, você sai do quarto.", "Saiu do quarto", JOptionPane.PLAIN_MESSAGE);		
+		}
+		
+		JOptionPane.showMessageDialog(null, "Você sai em um corredor extenso, entre eles vê algumas portas trancadas com cadeado. \n"
+				+ "Enquanto anda pelos corredores nota que há vários quadros. Alguns, normais, com pinturas famosas, montanhas e até campos. \n"
+				+ "Mas conforme passa pelo corredor, os quadros começam a ficar mais sombrios. \n"
+				+ "Como um homem pálido, com seus olhos saltados para fora, uma porta com um rastro de sangue, e por último uma janela com uma mão ensanguentada.", "Capítulo I - Corredores", JOptionPane.PLAIN_MESSAGE);
+		
+		JOptionPane.showMessageDialog(null, "Ao chegar ao fim do corredor, você dá de frente com uma porta antiga. \n"
+				+ "Sua madeira está velha, começando a descascar. Quase é possível ver o que tem atrás dela.\n"
+				+ "Você olha pro chão e percebe que começa a escorrer sangue pela porta, criando uma poça em seus pés.", "Capítulo I - A Porta", JOptionPane.PLAIN_MESSAGE);
+		
+		Object[] options2 = {"Entrar", "Voltar ao quarto"};
+		int opcaoAcao2 = JOptionPane.showOptionDialog(null, "Você nota que a porta está apenas encostada. \n"
+				+ "Mas com a escuridão, não é possível ver nada.", "Ação II", 0, JOptionPane.QUESTION_MESSAGE, null, options2, options2[0]);
+		if (opcaoAcao2 == 0) {
+			JOptionPane.showMessageDialog(null, "Lentamente, você entra pela fresta da porta. \n"
+					+ "Tudo permanece muito escuro, não é possível ver nada.", "Você escolheu entrar", JOptionPane.PLAIN_MESSAGE);
+		}
+		else {
+			JOptionPane.showMessageDialog(null, "Tudo aquilo acabou criando um pavor em você. \n"
+					+ "Diante disso, você corre frenéticamente para o quarto e tranca a porta. Agora é só você", "Você escolheu voltar ao quarto.", JOptionPane.PLAIN_MESSAGE);
 		}
 	}
+
 }
