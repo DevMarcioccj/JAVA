@@ -1,0 +1,13 @@
+package defaultpackage;
+
+public class Personagem {
+	String genero;
+	String Tipo;
+	String name;
+	
+	Personagem(String genero, String tipo, String name){
+		this.genero = genero;
+		this.Tipo = tipo;
+		this.name = name;
+	}
+}
